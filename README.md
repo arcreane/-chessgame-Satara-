@@ -1,5 +1,5 @@
 # Satara-
-# Jeu d'Échecs — ISART Digital 2025-2026
+# Jeu d'Échecs
 
 ## Équipe
 Mandiaye Mbow
