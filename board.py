@@ -11,6 +11,9 @@ class Board:
     """
     Classe représentant le plateau de jeu d'échecs.
     Gère l'état de l'échiquier et la position de toutes les pièces.
+
+    Attributs:
+        _board (dict): dictionnaire position -> pièce
     """
 
     def __init__(self):
@@ -18,18 +21,15 @@ class Board:
         Initialise le plateau avec toutes les pièces à leur position initiale.
         Utilise un dictionnaire pour stocker les pièces.
         """
-        # Dictionnaire : clé = str(position), valeur = pièce
         self._board = {}
         self._setup()
 
     def _setup(self):
         """Place toutes les pièces à leur position initiale."""
-
-        # Ordre des pièces sur la rangée de départ
         pieces_order = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
         columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 
-        # Pièces blanches (rangée 1 et 2)
+        # Pièces blanches
         for i, PieceClass in enumerate(pieces_order):
             pos = Position(columns[i], 1)
             self._board[str(pos)] = PieceClass(pos, 0)
@@ -38,7 +38,7 @@ class Board:
             pos = Position(col, 2)
             self._board[str(pos)] = Pawn(pos, 0)
 
-        # Pièces noires (rangée 8 et 7)
+        # Pièces noires
         for i, PieceClass in enumerate(pieces_order):
             pos = Position(columns[i], 8)
             self._board[str(pos)] = PieceClass(pos, 1)
@@ -86,14 +86,24 @@ class Board:
         """
         piece = self.getPiece(position)
         if piece:
-            # Supprime l'ancienne position
             del self._board[str(position)]
-            # Place la pièce à la nouvelle position
             self._board[str(newPosition)] = piece
             piece.position = newPosition
 
+    def getAllPieces(self, color):
+        """
+        Retourne toutes les pièces d'une couleur donnée.
+
+        Args:
+            color (int): 0 pour blanc, 1 pour noir
+
+        Returns:
+            list: liste des pièces de cette couleur
+        """
+        return [p for p in self._board.values() if p.color == color]
+
     def display(self):
-        """Affiche le plateau dans le terminal (mode texte)."""
+        """Affiche le plateau dans le terminal."""
         print("  a b c d e f g h")
         for row in range(8, 0, -1):
             line = f"{row} "
@@ -110,7 +120,6 @@ if __name__ == "__main__":
     print("Test affichage plateau initial :")
     board.display()
 
-    # Test getPiece
     p = board.getPiece(Position('e', 1))
     print(f"Pièce en e1 : {p}")  # Attendu : K
 

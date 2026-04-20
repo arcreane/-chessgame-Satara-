@@ -1,11 +1,26 @@
+from pieces.piece import Piece
+from position import Position
+
+
 class Pawn(Piece):
+    """Classe représentant le Pion. Se déplace vers l'avant."""
+
     def __str__(self):
+        """Retourne l'identifiant du Pion."""
         return 'P'
 
     def isValidMove(self, newPosition, board):
-        # Blanc (0) monte (+1), Noir (1) descend (-1)
+        """
+        Vérifie si le déplacement est valide pour un Pion.
+
+        Args:
+            newPosition (Position): position de destination
+            board (Board): plateau de jeu
+
+        Returns:
+            bool: True si le mouvement est valide
+        """
         direction = 1 if self._color == 0 else -1
-        # départ: 1 pour Blancs , 6 pour Noir
         start_row = 1 if self._color == 0 else 6
 
         c1, r1 = self._position.col_index(), self._position.row_index()
@@ -16,20 +31,21 @@ class Pawn(Piece):
 
         target = board.getPiece(newPosition)
 
-        # mvt du pion  tout droit sur la meme colonne/ la case doit être vide
-
+        # Avance d'une case
         if dc == 0 and dr == direction:
             return target is None
 
-        # Premier coup peut  avance de deux cases
-        # Doit être sur la rangée de départ pour avancer de 2, et les deux cases devant doivent être vides
+        # Avance de deux cases depuis la position initiale
         if dc == 0 and dr == 2 * direction and r1 == start_row:
             inter = Position.from_indices(c1, r1 + direction)
             return target is None and board.getPiece(inter) is None
 
-        # 3. Capture en diagonale
-        # Doit bouger d'une colonne et d'une ligne, et il doit y avoir un ennemi
+        # Capture en diagonale
         if abs(dc) == 1 and dr == direction:
             return target is not None and target.color != self._color
 
         return False
+
+
+if __name__ == "__main__":
+    print("Tests Pawn OK !")
