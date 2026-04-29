@@ -31,7 +31,6 @@ class Chess:
                 self._players.append(AIPlayer(color))
             else:
                 self._players.append(Player(name, color))
-
         self._currentPlayer = self._players[0]
 
     def displayBoard(self):
@@ -56,11 +55,9 @@ class Chess:
             src_str = parts[0]
             dst_str = parts[1]
 
-            # Extraire position source et destination
             src_pos = Position(src_str[1], int(src_str[2]))
             dst_pos = Position(dst_str[1], int(dst_str[2]))
 
-            # Récupérer la pièce à la position source
             piece = self._board.getPiece(src_pos)
 
             if piece is None:
@@ -98,13 +95,39 @@ class Chess:
 
     def isCheckMate(self):
         """
-        Vérifie si un joueur est échec et mat.
-        Version simplifiée : retourne toujours False.
+        Vérifie si le roi adverse a été capturé
+        ou si le joueur courant n'a aucun mouvement valide.
 
         Returns:
-            bool: True si échec et mat
+            bool: True si la partie est terminée
         """
-        return False
+        from pieces.king import King
+
+        # Vérifie si un roi est absent du plateau
+        for color in [0, 1]:
+            king_found = False
+            for piece in self._board._board.values():
+                if isinstance(piece, King) and piece.color == color:
+                    king_found = True
+                    break
+            if not king_found:
+                winner = "Blanc" if color == 1 else "Noir"
+                print(f"\n*** {winner} gagne ! Le roi adverse a été capturé ! ***")
+                return True
+
+        # Vérifie si le joueur courant a au moins un mouvement valide
+        columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+        current_color = self._currentPlayer.color
+        for piece in list(self._board._board.values()):
+            if piece.color == current_color:
+                for col in columns:
+                    for row in range(1, 9):
+                        newPos = Position(col, row)
+                        if piece.isValidMove(newPos, self._board):
+                            return False
+
+        print(f"\n*** Pat ou échec et mat ! Match nul ! ***")
+        return True
 
     def save(self, filename="save.txt"):
         """
@@ -153,10 +176,9 @@ class Chess:
         while not self.isCheckMate():
             self.displayBoard()
 
-            # Demande un coup valide
             move = None
             while not move or not self.isValidMove(move):
-                if hasattr(self._currentPlayer, 'askMove') and isinstance(self._currentPlayer, AIPlayer):
+                if isinstance(self._currentPlayer, AIPlayer):
                     move = self._currentPlayer.askMove(self._board)
                 else:
                     move = self._currentPlayer.askMove()
