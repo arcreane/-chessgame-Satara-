@@ -5,26 +5,15 @@ from position import Position
 
 
 class Chess:
-    """
-    Classe principale gérant la partie d'échecs.
-
-    Attributs:
-        _board (Board): plateau de jeu
-        _players (list): liste des 2 joueurs
-        _currentPlayer (Player): joueur qui a la main
-    """
+    """ class qui gère la partie """
 
     def __init__(self):
-        """Initialise une partie d'échecs."""
         self._board = Board()
         self._players = []
         self._currentPlayer = None
 
     def initPlayers(self):
-        """
-        Demande les noms des joueurs et les instancie.
-        Si le nom saisi est 'AI', instancie un AIPlayer.
-        """
+        """ Pour savoir si c'est le joueur qui va joué ou l'IA """
         for i, color in enumerate([0, 1]):
             name = input(f"Entrez le nom du joueur {i + 1} ({'Blanc' if color == 0 else 'Noir'}) : ")
             if name == "AI":
@@ -34,19 +23,11 @@ class Chess:
         self._currentPlayer = self._players[0]
 
     def displayBoard(self):
-        """Affiche l'état actuel du plateau."""
+        """ affiche le plateau """
         self._board.display()
 
     def isValidMove(self, move):
-        """
-        Vérifie si le coup saisi est valide.
-
-        Args:
-            move (str): coup saisi ex: 'Nb1 Nc3'
-
-        Returns:
-            bool: True si le coup est valide
-        """
+        """ pour vérifier si le coup est valide """
         try:
             parts = move.strip().split()
             if len(parts) != 2:
@@ -75,35 +56,22 @@ class Chess:
             return False
 
     def updateBoard(self, move):
-        """
-        Met à jour le plateau après un coup valide.
-
-        Args:
-            move (str): coup validé ex: 'Nb1 Nc3'
-        """
+        """ met à jour le plateau que si isValidMove vérifié """
         parts = move.strip().split()
         src_pos = Position(parts[0][1], int(parts[0][2]))
         dst_pos = Position(parts[1][1], int(parts[1][2]))
         self._board.movePiece(src_pos, dst_pos)
 
     def switchPlayer(self):
-        """Bascule vers l'autre joueur."""
+        """ pour passer d'un joueur à l'autre """
         if self._currentPlayer == self._players[0]:
             self._currentPlayer = self._players[1]
         else:
             self._currentPlayer = self._players[0]
 
     def isCheckMate(self):
-        """
-        Vérifie si le roi adverse a été capturé
-        ou si le joueur courant n'a aucun mouvement valide.
-
-        Returns:
-            bool: True si la partie est terminée
-        """
+        """ pour savoir si le roi a été capturé """
         from pieces.king import King
-
-        # Vérifie si un roi est absent du plateau
         for color in [0, 1]:
             king_found = False
             for piece in self._board._board.values():
@@ -115,7 +83,6 @@ class Chess:
                 print(f"\n*** {winner} gagne ! Le roi adverse a été capturé ! ***")
                 return True
 
-        # Vérifie si le joueur courant a au moins un mouvement valide
         columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
         current_color = self._currentPlayer.color
         for piece in list(self._board._board.values()):
@@ -130,24 +97,14 @@ class Chess:
         return True
 
     def save(self, filename="save.txt"):
-        """
-        Sauvegarde la partie dans un fichier.
-
-        Args:
-            filename (str): nom du fichier de sauvegarde
-        """
+        """ sauvegarde de la partie dans un fichier """
         with open(filename, 'w') as f:
             for pos_str, piece in self._board._board.items():
                 f.write(f"{pos_str},{str(piece)},{piece.color}\n")
         print(f"Partie sauvegardée dans {filename}")
 
     def load(self, filename="save.txt"):
-        """
-        Charge une partie depuis un fichier.
-
-        Args:
-            filename (str): nom du fichier de sauvegarde
-        """
+        """ pour charger une partie dans un fichier """
         from pieces.king import King
         from pieces.queen import Queen
         from pieces.bishop import Bishop
@@ -170,7 +127,7 @@ class Chess:
         print(f"Partie chargée depuis {filename}")
 
     def play(self):
-        """Démarre et gère la boucle principale de la partie."""
+        """ gère la boucle principale """
         self.initPlayers()
 
         while not self.isCheckMate():
