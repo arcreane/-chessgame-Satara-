@@ -1,11 +1,10 @@
-from chess import Chess
+from game_ui import GameUI
 
 
 def main():
     """Point d'entrée principal du jeu d'échecs."""
-    print("=== Jeu d'Échecs — ISART Digital 2025-2026 ===")
-    game = Chess()
-    game.play()
+    ui = GameUI()
+    ui.run()
 
 
 if __name__ == "__main__":
