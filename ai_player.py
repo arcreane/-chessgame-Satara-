@@ -49,3 +49,9 @@ my_pieces = []
                 return move
 
         return None
+
+if __name__ == "__main__":
+    print("Test AIPlayer :")
+    ai = AIPlayer(1)
+    print(f"IA : {ai.name}, couleur : {ai.color}")
+    print("Tests AIPlayer OK !")
