@@ -1,8 +1,3 @@
-import random
-from position import Position
-from player import Player
-
-
 class AIPlayer(Player):
     """
     Classe représentant un joueur IA.
@@ -23,14 +18,14 @@ class AIPlayer(Player):
         Génère un coup aléatoire valide.
 
         Args:
-            board (Board): plateau de jeu actuel
+            board : plateau de jeu
 
         Returns:
             str: coup généré ex: 'Nb1 Nc3'
         """
         columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 
-        my_pieces = []
+my_pieces = []
         for col in columns:
             for row in range(1, 9):
                 pos = Position(col, row)
@@ -54,10 +49,3 @@ class AIPlayer(Player):
                 return move
 
         return None
-
-
-if __name__ == "__main__":
-    print("Test AIPlayer :")
-    ai = AIPlayer(1)
-    print(f"IA : {ai.name}, couleur : {ai.color}")
-    print("Tests AIPlayer OK !")
