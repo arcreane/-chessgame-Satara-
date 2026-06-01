@@ -1,3 +1,7 @@
+import random
+from position import Position
+from player import Player
+
 class AIPlayer(Player):
     """
     Classe représentant un joueur IA.
