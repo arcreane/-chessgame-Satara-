@@ -4,32 +4,23 @@ from player import Player
 
 class AIPlayer(Player):
     """
-    Classe représentant un joueur IA.
-    Génère un mouvement aléatoire parmi les pièces disponibles.
+    Classe représentant un joueur IA
+    Génère un mouvement aléatoire parmi les pièces disponibles
     """
 
     def __init__(self, color):
-        """
-        Initialise le joueur IA.
-
-        Args:
-            color (int): 0 pour blanc, 1 pour noir
+        """ Initialise le joueur IA
+        Arguments:
+            couleur
         """
         super().__init__("AI", color)
 
     def askMove(self, board):
-        """
-        Génère un coup aléatoire valide.
-
-        Args:
-            board : plateau de jeu
-
-        Returns:
-            str: coup généré ex: 'Nb1 Nc3'
-        """
+        """ Génère un coup aléatoire valide
+        Argumens: plateau du jeu """
         columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 
-my_pieces = []
+        my_pieces = []
         for col in columns:
             for row in range(1, 9):
                 pos = Position(col, row)
