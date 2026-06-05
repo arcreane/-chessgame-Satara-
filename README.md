@@ -22,8 +22,6 @@ python main.py
 
 ## Contrôles
 - Clic gauche : sélectionner et déplacer une pièce
-- S : sauvegarder la partie
-- L : charger une partie
 
 ## Structure du projet
 Satara-/
