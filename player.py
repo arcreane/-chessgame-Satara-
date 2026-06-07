@@ -3,11 +3,7 @@ from position import Position
 
 class Player:
     """
-    Classe représentant un joueur humain.
-
-    Attributs:
-        _name (str): nom du joueur
-        _color (int): couleur du joueur (0 = blanc, 1 = noir)
+    Classe du joueur humain
     """
 
     def __init__(self, name, color):
@@ -15,8 +11,8 @@ class Player:
         Initialise un joueur.
 
         Args:
-            name (str): nom du joueur
-            color (int): 0 pour blanc, 1 pour noir
+            name: nom du joueur
+            color: 0 pour blanc, 1 pour noir
         """
         self._name = name
         self._color = color
@@ -31,10 +27,7 @@ class Player:
 
     def askMove(self):
         """
-        Demande au joueur de saisir son coup.
-
-        Returns:
-            str: coup saisi ex: 'Nb1 Nc3'
+        Demande au joueur de saisir son coup
         """
         return input(f"{self._name} ({'Blanc' if self._color == 0 else 'Noir'}), entrez votre coup (ex: Nb1 Nc3) : ")
 
