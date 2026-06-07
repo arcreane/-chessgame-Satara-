@@ -15,18 +15,17 @@ BLACK_TILE = (181, 136, 99)
 
 class GameUI:
     """
-    Interface graphique du jeu d'échecs avec pygame.
-
+    Interface graphique du jeu d'échecs avec pygame
     Attributs:
-        _chess (Chess): instance du jeu
-        _screen (Surface): fenêtre pygame
-        _images (dict): dictionnaire des images des pièces
-        _selected_pos (Position): pièce actuellement sélectionnée
-        _valid_moves (list): liste des mouvements valides
+        _chess: instance du jeu
+        _screen: fenêtre pygame
+        _images: dictionnaire des images des pièces
+        _selected_pos: pièce actuellement sélectionnée
+        _valid_moves: liste des mouvements valides
     """
 
     def __init__(self):
-        """Initialise pygame et charge les images."""
+        """Initialise pygame et charge les images"""
         pygame.init()
         self._screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption("Jeu d'Échecs — ISART Digital 2025-2026")
@@ -38,7 +37,7 @@ class GameUI:
         self._init_players()
 
     def _load_images(self):
-        """Charge toutes les images des pièces depuis assets/images/."""
+        """Charge toutes les images des pièces depuis assets/images/"""
         pieces = ['K', 'Q', 'B', 'N', 'R', 'P']
         colors = ['w', 'b']
         for piece in pieces:
@@ -49,7 +48,7 @@ class GameUI:
                 self._images[key] = pygame.transform.scale(img, (TILE_SIZE, TILE_SIZE))
 
     def _init_players(self):
-        """Initialise les joueurs via le terminal."""
+        """Initialise les joueurs via le terminal"""
         name1 = input("Nom du joueur 1 (Blanc) ou 'AI' : ")
         name2 = input("Nom du joueur 2 (Noir) ou 'AI' : ")
 
@@ -67,13 +66,7 @@ class GameUI:
 
     def _get_image_key(self, piece):
         """
-        Retourne la clé de l'image pour une pièce donnée.
-
-        Args:
-            piece (Piece): la pièce
-
-        Returns:
-            str: clé ex: 'Kw', 'Pb'
+        Retourne la clé de l'image pour une pièce donnée
         """
         color = 'w' if piece.color == 0 else 'b'
         return f"{str(piece)}{color}"
@@ -89,7 +82,7 @@ class GameUI:
                 )
 
     def _draw_highlights(self):
-        """Dessine la case sélectionnée et les mouvements valides."""
+        """Dessine la case sélectionnée et les mouvements valides"""
         highlight_surface = pygame.Surface((TILE_SIZE, TILE_SIZE), pygame.SRCALPHA)
 
         if self._selected_pos:
@@ -105,7 +98,7 @@ class GameUI:
             self._screen.blit(highlight_surface, (col * TILE_SIZE, row * TILE_SIZE))
 
     def _draw_pieces(self):
-        """Dessine toutes les pièces sur le plateau."""
+        """Dessine toutes les pièces sur le plateau"""
         for col_char in ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']:
             for row_num in range(1, 9):
                 pos = Position(col_char, row_num)
@@ -118,13 +111,7 @@ class GameUI:
 
     def _get_valid_moves(self, position):
         """
-        Calcule tous les mouvements valides pour la pièce à position.
-
-        Args:
-            position (Position): position de la pièce sélectionnée
-
-        Returns:
-            list: liste des positions valides
+        Vérifie tous les mouvements valides pour la pièce à position
         """
         piece = self._chess._board.getPiece(position)
         if not piece:
@@ -140,14 +127,7 @@ class GameUI:
 
     def _pixel_to_position(self, x, y):
         """
-        Convertit des coordonnées pixel en Position.
-
-        Args:
-            x (int): coordonnée x en pixels
-            y (int): coordonnée y en pixels
-
-        Returns:
-            Position: position correspondante
+        Convertit des coordonnées pixel en Position
         """
         col = x // TILE_SIZE
         row = 7 - (y // TILE_SIZE)
@@ -155,11 +135,7 @@ class GameUI:
 
     def _handle_click(self, x, y):
         """
-        Gère un clic sur le plateau.
-
-        Args:
-            x (int): coordonnée x
-            y (int): coordonnée y
+        Gère les clic sur le plateau
         """
         clicked_pos = self._pixel_to_position(x, y)
         piece = self._chess._board.getPiece(clicked_pos)
@@ -185,7 +161,7 @@ class GameUI:
                 self._valid_moves = []
 
     def run(self):
-        """Lance la boucle principale du jeu."""
+        """Boucle principale du jeu"""
         clock = pygame.time.Clock()
 
         while True:
