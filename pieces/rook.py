@@ -2,7 +2,7 @@ from pieces.piece import Piece
 
 
 class Rook(Piece):
-    """Classe représentant la Tour. Se déplace en ligne droite."""
+    """Classe représentant la Tour il se déplace en ligne droite"""
 
     def __str__(self):
         """Retourne l'identifiant de la Tour."""
@@ -10,14 +10,7 @@ class Rook(Piece):
 
     def isValidMove(self, newPosition, board):
         """
-        Vérifie si le déplacement est valide pour une Tour.
-
-        Args:
-            newPosition (Position): position de destination
-            board (Board): plateau de jeu
-
-        Returns:
-            bool: True si le mouvement est valide
+        Vérifie si le déplacement est valide pour une Tour
         """
         dc = abs(newPosition.col_index() - self._position.col_index())
         dr = abs(newPosition.row_index() - self._position.row_index())
