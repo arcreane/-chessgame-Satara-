@@ -13,11 +13,8 @@ class Bishop(Piece):
         Vérifie si le déplacement est valide pour un Fou.
 
         Args:
-            newPosition (Position): position de destination
-            board (Board): plateau de jeu
-
-        Returns:
-            bool: True si le mouvement est valide
+            newPosition: position de destination
+            board: plateau de jeu
         """
         dc = abs(newPosition.col_index() - self._position.col_index())
         dr = abs(newPosition.row_index() - self._position.row_index())
