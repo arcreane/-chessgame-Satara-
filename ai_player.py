@@ -4,7 +4,7 @@ from player import Player
 
 class AIPlayer(Player):
     """
-    Classe représentant un joueur IA
+    Classe pour l'IA
     Génère un mouvement aléatoire parmi les pièces disponibles
     """
 
