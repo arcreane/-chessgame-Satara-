@@ -9,23 +9,18 @@ from pieces.pawn import Pawn
 
 class Board:
     """
-    Classe représentant le plateau de jeu d'échecs.
-    Gère l'état de l'échiquier et la position de toutes les pièces.
-
-    Attributs:
-        _board (dict): dictionnaire position -> pièce
+    Classe qui gère le plateau de jeu d'échecs
     """
 
     def __init__(self):
         """
-        Initialise le plateau avec toutes les pièces à leur position initiale.
-        Utilise un dictionnaire pour stocker les pièces.
+        Initialise le plateau avec toutes les pièces à leur position initiale
+        On utilise un dictionnaire pour stocker les pièces
         """
         self._board = {}
         self._setup()
 
     def _setup(self):
-        """Place toutes les pièces à leur position initiale."""
         pieces_order = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
         columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 
@@ -49,25 +44,13 @@ class Board:
 
     def getPiece(self, position):
         """
-        Retourne la pièce à la position donnée.
-
-        Args:
-            position (Position): position à vérifier
-
-        Returns:
-            Piece: la pièce à cette position, ou None si vide
+        Retourne la pièce à la position donnée
         """
         return self._board.get(str(position), None)
 
     def getPosition(self, piece):
         """
-        Retourne la position d'une pièce donnée.
-
-        Args:
-            piece (Piece): la pièce recherchée
-
-        Returns:
-            Position: position de la pièce, ou None si capturée
+        Retourne la position d'une pièce donnée
         """
         for pos_str, p in self._board.items():
             if p is piece:
@@ -78,11 +61,7 @@ class Board:
 
     def movePiece(self, position, newPosition):
         """
-        Déplace une pièce d'une position à une autre.
-
-        Args:
-            position (Position): position actuelle
-            newPosition (Position): position de destination
+        Déplace une pièce d'une position à une autre
         """
         piece = self.getPiece(position)
         if piece:
@@ -92,18 +71,12 @@ class Board:
 
     def getAllPieces(self, color):
         """
-        Retourne toutes les pièces d'une couleur donnée.
-
-        Args:
-            color (int): 0 pour blanc, 1 pour noir
-
-        Returns:
-            list: liste des pièces de cette couleur
+        Retourne toutes les pièces d'une couleur donnée
         """
         return [p for p in self._board.values() if p.color == color]
 
     def display(self):
-        """Affiche le plateau dans le terminal."""
+        """Affiche le plateau dans le terminal"""
         print("  a b c d e f g h")
         for row in range(8, 0, -1):
             line = f"{row} "
