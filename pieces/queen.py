@@ -2,7 +2,7 @@ from pieces.piece import Piece
 
 
 class Queen(Piece):
-    """Classe représentant la Reine. Se déplace en ligne droite ou en diagonale."""
+    """Classe représentant la Reine qui se déplace en ligne droite ou en diagonale."""
 
     def __str__(self):
         """Retourne l'identifiant de la Reine."""
@@ -10,14 +10,7 @@ class Queen(Piece):
 
     def isValidMove(self, newPosition, board):
         """
-        Vérifie si le déplacement est valide pour une Reine.
-
-        Args:
-            newPosition (Position): position de destination
-            board (Board): plateau de jeu
-
-        Returns:
-            bool: True si le mouvement est valide
+        Vérifie si le déplacement est valide pour une Reine
         """
         dc = abs(newPosition.col_index() - self._position.col_index())
         dr = abs(newPosition.row_index() - self._position.row_index())
