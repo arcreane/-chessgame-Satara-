@@ -14,11 +14,8 @@ class Pawn(Piece):
         Vérifie si le déplacement est valide pour un Pion.
 
         Args:
-            newPosition (Position): position de destination
-            board (Board): plateau de jeu
-
-        Returns:
-            bool: True si le mouvement est valide
+            newPosition: position de destination
+            board: plateau de jeu
         """
         direction = 1 if self._color == 0 else -1
         start_row = 1 if self._color == 0 else 6
